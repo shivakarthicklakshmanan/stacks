@@ -1,0 +1,617 @@
+Sheet1 - Change the C2:H2 range value containing Jul-26 to Aug derived based on the run date. (Columns 5-8 are pertaining to previous month's data with respect to the current run date)
+Sheet range E5:G51 contains current month data range as per the current products/Models list, if this is changing later in future a new record might be added in this excel range. We have kept the order of products to be consistent always and so there is a order column in column B
+A1:A3 are dates based on the run date's previous month for example if the current month run date is August 1, 2026 then range A1:A3 will be 01-07-2026 that is mapped to C2:H2 range
+
+H5:H51 formula is =IFERROR(F5/E5,0) to be converted in to percentage with two decimal precision format.
+
+The above can be a name table range. 
+
+This can be a named table range. 
+
+I2:L2 formula: ="Year Ago ("&TEXT(A2,"MMM-YY")&")"
+Range: I5:L51 excel sheet contains previous year excel for same as last year figures. How to handle this? Can we keep it in a separate repository to point such file based on name and then populate the fields? 
+
+I5:K51 formula
+=IFERROR(VLOOKUP($D5,'E:\Presentations\CENMAC AUGUST 2025\[Jul''25 CONVERSION (as on 31.07.2025).xlsx]Sheet1'!$D$4:$G$48,2,0),0)
+
+l5:l51 range formula, =IFERROR(J5/I5,0) to be converted in to percentage with two decimal precision format.
+
+
+Third Table Range (M5:N51). (Previous Financial year end, i.e. Financial Year starts from April 01 to March 31) So March 31 data position will come here. 
+N5:N51 can be percentage with 2 decimals precision.
+
+O5:O51 Table range
+=VLOOKUP(C5&D5,overall!$C$8:$F$54,4,0)
+
+Referring to another sheet named overall to map the product&BU to that sheet to lookup and get teh index key. 
+
+P5:P51 formula = (=O5=B5)
+
+Q5:Q51 Formual: =IFERROR((G5-K5)/K5,0) (Percentage with 2 digits precision).
+
+Fourth Named table range: R5:U51
+Name range: R2:U2 = (="Last Month Figures ("&TEXT(A1-1,"MMM-YY")&")")
+
+U5:U51 formula 
+=IFERROR(S5/R5,0) with percentage 2 precisions.
+
+V5:AA51 are sanity checks formulas and data
+
+V5:V51 Formula is F5-S5 
+W5:W51 Formula is G5-T5
+X5:X51 Formula is =S5/IF(MONTH($A$1)> 3, MONTH($A$1) - 3, MONTH($A$1) + 9) this is because the Financial year starts from April 01 to March 31.
+Y5:Y51 Formula is =T5/IF(MONTH($A$1)> 3, MONTH($A$1) - 3, MONTH($A$1) + 9)
+Z5:Z51 Formula is =IFERROR((V5-X5)/X5,0) percentage with 2 decimal precision. 
+AA5:AA51 Formula is =IFERROR((W5-Y5)/Y5,0) percentage with 2 decimal precision. 
+
+AB5:AB51 Formula is =E5<R5
+AC5:AC51 Formula is =F5<=S5
+AD5:AD51 Formula is =G5<=T5
+AE5:AE51 Formula is =H5<=U5
+
+Condition formatting applied to range AB5:AE51 if any cell contains the flag TRUE then Highlight with RED. 
+
+
+AF5:AF51 Formula is =(F5-J5)/J5
+AG5:AG51 Formula is =(G5-K5)/K5
+
+
+New sheet: overall 
+
+starting position, B8:C54. C8:C54 Formula is =D8&E8
+
+G1 formula: =COUNTA(E8:E1048576)
+
+G4:J4 name is referring to the previous sheet. ="FY'26 (Upto "&TEXT(Sheet1!A1,"MMM-YYYY")&")"
+
+G8:G54 Formula is =VLOOKUP($C8,Sheet1!$A$5:$AE$51,Sheet1!E$3,0)/10^5
+
+H8:H54 Formula is =VLOOKUP($C8,Sheet1!$A$5:$AE$51,Sheet1!F$3,0)/10^5
+
+I8:I54 Formula is =VLOOKUP($C8,Sheet1!$A$5:$AE$51,Sheet1!H$3,0)
+
+J8:J54 Formula is =VLOOKUP($C8,Sheet1!$A$5:$AE$51,Sheet1!G$3,0)
+
+K4:N4 referring to previous sheet, ="FY'25 (Upto "&TEXT(Sheet1!A2,"MMM-YYYY")&")"
+
+K8:K54 Formula is =VLOOKUP($C8,Sheet1!$A$5:$AE$51,Sheet1!I$3,0)/10^5			
+
+L8:L54 Formula is =VLOOKUP($C8,Sheet1!$A$5:$AE$51,Sheet1!J$3,0)/10^5
+
+M8:M54 Formula is =VLOOKUP($C8,Sheet1!$A$5:$AE$51,Sheet1!L$3,0) (With 2 decimal precisions)
+
+
+M8:M54 Formula is =VLOOKUP($C8,Sheet1!$A$5:$AE$51,Sheet1!K$3,0)
+
+O4:P4 =Sheet1!A3
+
+O8:O54 =VLOOKUP($C8,Sheet1!$A$5:$AE$51,Sheet1!M$3,0)
+P8:P54 =VLOOKUP($C36,Sheet1!$A$5:$AE$51,Sheet1!N$3,0) with 2 digits precisions 
+
+Start from Contribution column 
+
+Q8:Q54 Formula is =VLOOKUP($C8,Sheet1!$A$5:$AE$51,Sheet1!K$3,0)
+=J8/$R$9 (with 2 decimal points, precision)
+
+
+Important summary table:
+T8:V8
+R8: Contribution from Assets
+R9: =SUM(J8:J50)
+R11: =SUM(N8:N50)
+
+T10:W14 
+T10
+=SUMIF($D$8:$D$54,$S10,G$8:G$54)
+U10
+=SUMIF($D$8:$D$54,$S10,H$8:H$54)
+V10 
+=SUMIF($D$8:$D$54,$S10,J$8:J$54)
+W10 
+=SUMIF($D$8:$D$54,$S10,N$8:N$54)
+
+T15: =SUM(T10:T14)
+U15: =SUM(U10:U14)
+V15: =SUM(V10:V14)
+W15: =SUM(W10:W14)
+X15: =(V15-W15)/W15
+
+
+T19: =V10
+T20: =V11
+T21: =V12
+T22: =V13
+T23: =SUM(T19:T22)
+
+T32: =VLOOKUP(S32,$E$8:$J$54,6,0)
+T33: =VLOOKUP(S33,$E$8:$J$54,6,0)
+T35: =VLOOKUP(S35,$E$8:$J$54,6,0)
+T36: =VLOOKUP(S36,$E$8:$J$54,6,0)
+T38: =VLOOKUP(S38,$E$8:$J$54,6,0)
+T39: =SUM(T32:T38)
+
+U32: =VLOOKUP(S32,Sheet1!$D$4:$L$51,8,0)
+U33: =VLOOKUP(S33,Sheet1!$D$4:$L$51,8,0)
+U34: =VLOOKUP(S34,Sheet1!$D$4:$L$51,8,0)
+U35: =VLOOKUP(S35,Sheet1!$D$4:$L$51,8,0)
+U36: =VLOOKUP(S36,Sheet1!$D$4:$L$51,8,0)
+U37: =VLOOKUP(S37,Sheet1!$D$4:$L$51,8,0)
+U38: =VLOOKUP(S38,Sheet1!$D$4:$L$51,8,0)
+U39: =SUM(U32:U38)
+
+V32: =(T32-U32)/U32
+V33: =(T33-U33)/U33
+V34: =(T34-U34)/U34
+V35: =(T35-U35)/U35
+V36: =(T36-U36)/U36
+V37: =(T37-U37)/U37
+V38: =(T38-U38)/U38
+V39: =(T39-U39)/U39
+
+
+T41: =SUM(J51:J54)
+T45: =VLOOKUP(S45,$E$51:$P$54,6,0)
+T46: =VLOOKUP(S46,$E$51:$P$54,6,0)
+T47: =VLOOKUP(S47,$E$51:$P$54,6,0)
+T48: =VLOOKUP(S48,$E$51:$P$54,6,0)
+T49: =SUM(T45:T48)
+
+
+U45: =VLOOKUP(S45,$E$51:$P$54,10,0)
+U46: =VLOOKUP(S46,$E$51:$P$54,10,0)
+U47: =VLOOKUP(S47,$E$51:$P$54,10,0)
+U48: =VLOOKUP(S48,$E$51:$P$54,10,0)
+U49: =SUM(U45:U48)
+V49: =(T49-U49)/U49 (Precision with 2 Decimal Points)
+
+
+
+
+CENMAC Sheet: 
+C8: =D8&E8
+
+F1: =COUNTA(E8:E1048576)  
+F4:I4: ="FY'26 (Upto "&TEXT(Sheet1!A1,"MMM-YYYY")&")"
+F8:F46 =VLOOKUP($C8,Sheet1!$A$5:$H$51,5,0)/10^5
+G8:G46 =VLOOKUP($C8,Sheet1!$A$5:$H$51,6,0)/10^5
+H8:H46 =VLOOKUP($C8,Sheet1!$A$5:$H$51,8,0)
+I8:I46 =VLOOKUP($C8,Sheet1!$A$5:$AE$51,Sheet1!G$3,0)
+J8:J46 =VLOOKUP($C8,Sheet1!$A$5:$AE$51,Sheet1!I$3,0)/10^5
+K8:K46 =VLOOKUP($C8,Sheet1!$A$5:$AE$51,Sheet1!J$3,0)/10^5
+L8:L46 =VLOOKUP($C8,Sheet1!$A$5:$AE$51,Sheet1!L$3,0)
+M8:M46 =VLOOKUP($C8,Sheet1!$A$5:$AE$51,Sheet1!K$3,0)
+N8:N46 =VLOOKUP($C8,Sheet1!$A$5:$N$51,13,0)
+O8:O46 =VLOOKUP($C8,Sheet1!$A$5:$N$51,14,0)
+
+J4:M4 ="FY'25 (Upto "&TEXT(Sheet1!A2,"MMM-YYYY")&")"   ---- same as last year. 
+
+N4:04 =Sheet1!A3
+
+
+New sheet Sheet5
+
+C4:F4
+C6: =SUMIF(Sheet1!$C$5:$C$51,Sheet5!$B6,Sheet1!$E$5:$E$51)/10^5
+C7: =SUMIF(Sheet1!$C$5:$C$51,Sheet5!$B7,Sheet1!$E$5:$E$51)/10^5
+C8: =SUMIF(Sheet1!$C$5:$C$51,Sheet5!$B8,Sheet1!$E$5:$E$51)/10^5
+C9: =SUMIF(Sheet1!$C$5:$C$51,Sheet5!$B9,Sheet1!$E$5:$E$51)/10^5
+C10: =SUMIF(Sheet1!$C$5:$C$51,Sheet5!$B10,Sheet1!$E$5:$E$51)/10^5
+C11: =SUM(C6:C10)
+
+
+D6: =SUMIF(Sheet1!$C$5:$C$51,Sheet5!$B6,Sheet1!$F$5:$F$51)/10^5
+D7: =SUMIF(Sheet1!$C$5:$C$51,Sheet5!$B7,Sheet1!$F$5:$F$51)/10^5
+D8: =SUMIF(Sheet1!$C$5:$C$51,Sheet5!$B8,Sheet1!$F$5:$F$51)/10^5
+D9: =SUMIF(Sheet1!$C$5:$C$51,Sheet5!$B9,Sheet1!$F$5:$F$51)/10^5
+D10: =SUMIF(Sheet1!$C$5:$C$51,Sheet5!$B10,Sheet1!$F$5:$F$51)/10^5
+D11: =SUM(D6:D10)
+
+E6: =D6/C6 (with 2 decimal precision)
+E7: =D7/C7
+E8: =D8/C8
+E9: =D9/C9
+E10 =D10/C10
+E11 =D11/C11
+
+F6: =SUMIF(Sheet1!$C$5:$C$51,Sheet5!$B6,Sheet1!$G$5:$G$51)
+F7: =SUMIF(Sheet1!$C$5:$C$51,Sheet5!$B7,Sheet1!$G$5:$G$51)
+F8: =SUMIF(Sheet1!$C$5:$C$51,Sheet5!$B8,Sheet1!$G$5:$G$51)
+F9: =SUMIF(Sheet1!$C$5:$C$51,Sheet5!$B9,Sheet1!$G$5:$G$51)
+F10 =SUMIF(Sheet1!$C$5:$C$51,Sheet5!$B10,Sheet1!$G$5:$G$51)
+F11: =SUM(F6:F10)
+
+G6: =SUMIF(Sheet1!$C$5:$I$51,Sheet5!$B6,Sheet1!$I$5:$I$51)/10^5
+G7: =SUMIF(Sheet1!$C$5:$I$51,Sheet5!$B7,Sheet1!$I$5:$I$51)/10^5
+G8: =SUMIF(Sheet1!$C$5:$I$51,Sheet5!$B8,Sheet1!$I$5:$I$51)/10^5
+G9: =SUMIF(Sheet1!$C$5:$I$51,Sheet5!$B9,Sheet1!$I$5:$I$51)/10^5
+G10: =SUMIF(Sheet1!$C$5:$I$51,Sheet5!$B10,Sheet1!$I$5:$I$51)/10^5
+G11: =SUM(G6:G10)
+
+
+H6:H10 =SUMIF(Sheet1!$C$5:$C$51,Sheet5!$B6,Sheet1!$J$5:$J$51)/10^5
+
+H11: =SUM(H6:H10)
+
+
+I6:I11  =H6/G6
+
+J6:J10 =SUMIF(Sheet1!$C$5:$C$51,Sheet5!$B6,Sheet1!$K$5:$K$51)
+J11 =SUM(J6:J10)
+
+
+K6:K10 =F6/SUM($F$6:$F$10)
+K7: =F7/SUM($F$6:$F$10)
+
+L6: =F6/SUM($F$6,$F$8,$F$9,$F$10)
+L8: =F8/SUM($F$6,$F$8,$F$9,$F$10)
+L9: =F9/SUM($F$6,$F$8,$F$9,$F$10)
+L10: =F10/SUM($F$6,$F$8,$F$9,$F$10)
+
+
+C19:C23 =SUMIF(Sheet1!$C$5:$C$51,Sheet5!$B19,Sheet1!$E$5:$E$51)/10^5
+D19:D23 =SUMIF(Sheet1!$C$5:$C$51,Sheet5!$B19,Sheet1!$F$5:$F$51)/10^5
+E19:E23 =D19/C19
+F19:F23 =SUMIF(Sheet1!$C$5:$C$51,Sheet5!$B19,Sheet1!$G$5:$G$51)
+
+
+G19:G23 =E19/7
+
+H19:H23 =F19/4
+
+
+
+
+
+Team Input workbooks BU wise: 
+
+Cells A1:B1 contains the name of the official who is incharge for this data. 
+
+All the sheets that contain data approximately in the range of B4:G23 but there are some excel files whose data are may be in different places. But every file has this metadata. 
+A4:A5 merged cell has the project or model name that will match with the Sheet1 B4 onwards (B column) order and Sheet1 D4 project's Name similarly overall sheet E7 onwards (E column)
+ABU (Jul'26).xlsx
+
+FY 26-27 (Up to Jul'26)					
+
+
+
+Total	32,78,452	52,586	1,778	1.60%	 6,762 	4.57%
+A23
+B23: =SUM(B6:B22)
+C23: =SUM(C6:C22)
+D23: =SUM(D6:D22)
+E23: =C23/B23
+
+Mostly the above is the formula for all the inputs sheets of Team.
+
+
+
+1	PBBU	PAPL
+2	PBBU	Real Time Express Credit (RTXC)
+3	PBBU	Xpress Credit
+4	PBBU	Recommendation Engine/Next Best Product  --- Discontinued (Need a highlighter or some sort of conditional formatter for highlihting)
+5	PBBU	PL takeover CSP
+6	PBBU	Non CPPC (Non CPPC is renamed as Pensions Loans)
+7	PBBU	P Seg Gold Loan
+8	PBBU	Winback Gold Loan
+9	PBBU	PACL-CSP
+10	PBBU	Car Loan -Non CSP 
+11	PBBU	POS Online
+12	PBBU	SBI Card PL
+13	PBBU	SBI Card Auto
+14	PBBU	SBI 2wheeler Loan
+15	PBBU	Education Loan for HL Borrower 
+16	PBBU	Loan Against Mutual fund
+17	PBBU	SuryaGhar Solar Finance Leads
+18	REHBU	HL for EL Borrower
+19	REHBU	HL Takeover
+20	REHBU	HL Top up
+21	REHBU	Insta HL Top UP
+22	REHBU	SBI Card HL
+23	REHBU	Home loan - Non CSP
+24	REHBU	Home loan - CSP
+25	REHBU	Recommendation Engine/Next Best Product
+26	REHBU	PLAP
+27	REHBU	Home Loan Repair and Renovation
+28	SMEBU	PABL / PABL PoS
+29	SMEBU	PASBL
+30	SMEBU	Export Finance
+31	SMEBU	Inland LC Discounting
+32	SMEBU	NTB SME (Note: This project has some of the cells for some of the circles have no conversion at all and so blank cells)
+33	SMEBU	Static CC
+34	SMEBU	SSBL & other SME loan 
+35	SMEBU	Surya Shakti Solar Finance
+36	SMEBU	NTB Emerging Sector
+37	SMEBU	Healthcare Business Loan
+38	ABU	Agri Gold
+39	ABU	Lead Generation for SHG/ JLGs
+40	ABU	Pre-qualified SHG Leads
+41	ABU	KCC
+42	ABU	MUDRA
+43	ABU	Kisan Samriddhi Rinn
+44	CVEBU	SBI Credit Card  (Note: This sheet has the total leads converted, generated already converted in lakhs and not in absolute number, just a caveat)
+45	CVEBU	SBI General Health & Motor 
+46	CVEBU	SBI Life 
+47	CVEBU	SBI Mutual Fund 
+
+
+Above given is the mapping of products with BUs, if some way if we can map or lable in the excels sheets inputs it will be better for efficient processing. 
+
+
+C
+PAPL
+Real Time Express Credit (RTXC)
+Xpress Credit
+PL takeover CSP
+Non CPPC
+P Seg Gold Loan
+Winback Gold Loan
+PACL-CSP
+Loan Against Mutual fund
+SuryaGhar Solar Finance Leads
+Overall
+HL for EL borrower
+HL Takeover
+HL Top up
+Insta HL Top UP
+Home loan - Non CSP
+Home loan - CSP
+PLAP
+Home Loan Repair and Renovation
+Overall
+PABL / PABL PoS
+PASBL
+Inland LC Discounting
+Static CC
+Surya Shakti Solar Finance
+NTB Emerging Sector
+Healthcare Business Loan
+Overall
+Agri Gold
+Lead Generation for SHG/ JLGs
+Pre-qualified SHG Leads
+MUDRA
+Kisan Samriddhi Rinn
+Overall
+SBI Credit Card 
+SBI General Health & Motor 
+SBI Life 
+SBI Mutual Fund 
+
+
+Overall
+
+
+PAPL
+Real Time Express Credit (RTXC)
+Xpress Credit
+Recommendation Engine/Next Best Product
+PL takeover CSP
+Non CPPC
+P Seg Gold Loan
+Winback Gold Loan
+PACL-CSP
+Car Loan -Non CSP 
+POS Online
+SBI Card PL
+SBI Card Auto
+SBI 2wheeler Loan
+Education Loan for HL Borrower 
+Loan Against Mutual fund
+SuryaGhar Solar Finance Leads
+HL for EL borrower
+HL Takeover
+HL Top up
+Insta HL Top UP
+SBI Card HL
+Home loan - Non CSP
+Home loan - CSP
+Recommendation Engine/Next Best Product
+PLAP
+Home Loan Repair and Renovation
+PABL / PABL PoS
+PASBL
+Export Finance
+Inland LC Discounting
+NTB SME
+Static CC
+SSBL & other SME loan 
+Surya Shakti Solar Finance
+NTB Emerging Sector
+Healthcare Business Loan
+Agri Gold
+Lead Generation for SHG/ JLGs
+Pre-qualified SHG Leads
+KCC
+MUDRA
+Kisan Samriddhi Rinn
+SBI Credit Card 
+SBI General Health & Motor 
+SBI Life 
+SBI Mutual Fund 
+
+
+FY 26-27 (Up to Jul'26)					
+
+Amaravati
+Bengaluru
+Bhopal
+Bhubaneshwar
+Chandigarh
+Chennai
+Gandhinagar (Ahmedabad)
+Guwahati
+Hyderabad
+Jaipur
+Kolkata
+Lucknow
+Maharashtra
+Mumbai Metro
+New Delhi
+Patna
+Thiruvananthapuram
+Total
+
+
+Unique Leads Generated	Leads Converted (count)	Commision (Amount) (in Cr.)	% Conversion	Business Booked in FY 2025-26 (commission) (in Cr.)	% Conversion
+
+
+
+akshay	PBBUPAPL
+Mutthu	PBBUReal Time Express Credit (RTXC)
+Mutthu	PBBUXpress Credit
+Divya	PBBUPL takeover CSP
+TR Sunil	PBBUNon CPPC
+TR Sunil	PBBUP Seg Gold Loan
+TR Sunil	PBBUWinback Gold Loan
+Akshay	PBBUPACL-CSP
+TR Sunil Kumar	PBBULoan Against Mutual fund
+	PBBUSuryaGhar Solar Finance Leads
+	
+Pulkit	REHBUHL for EL borrower
+Pulkit	REHBUHL Takeover
+Arti	REHBUHL Top up
+Arti	REHBUInsta HL Top UP
+Pulkit	REHBUHome loan - Non CSP
+Mutthu	REHBUHome loan - CSP
+Pulkit	REHBUPLAP
+Pulkit	REHBUHome Loan Repair and Renovation
+	
+Smita	SMEBUPABL / PABL PoS
+	SMEBUPASBL
+Vishwajeet	SMEBUInland LC Discounting
+Vikas	SMEBUStatic CC
+Vishwajeet	SMEBUSurya Shakti Solar Finance
+Supriya	SMEBUNTB Emerging Sector
+	SMEBUHealthcare Business Loan
+	
+Ajinkya	ABUAgri Gold
+Kailash	ABULead Generation for SHG/ JLGs
+Kailash	ABUPre-qualified SHG Leads
+Smita	ABUMUDRA
+Ajinkya	ABUKisan Samriddhi Rinn
+	
+Doctor Y	CVEBUSBI Credit Card 
+Doctor Y	CVEBUSBI General Health & Motor 
+Snehasish	CVEBUSBI Life 
+Ajinkya	CVEBUSBI Mutual Fund 
+
+
+
+
+Sheet1: 
+B4: 
+ORDER	BU	Project	Unique Leads Generated	Leads Converted (count)	Leads Converted (Amount)	% Conversion	Unique Leads Generated	Leads Converted (count)	Leads Converted (Amount)	% Conversion	Business Booked in FY 2024-25 (Amount) (in Cr.)	% Conversion	POPULATED SHEET ORDER	CHECK	Change year ago (in terms of amount)	Unique Leads Generated	Leads Converted (count)	Leads Converted (Amount)	% Conversion	wrt previous month (count)	wrt previous month (amount)	Run rate per month (count)	Run rate per month (amount)	"increase %
+count"	"increase %
+amount"	Unique Leads Generated	Leads Converted (count)	Leads Converted (Amount)	% Conversion	cnt	amnt
+
+
+MAC:
+F4:I4 FY'26 (Upto Jul-2026)			
+J4:M4 FY'25 (Upto Jul-2025)			
+N4:O4 FY25-26	
+F5: Unique Leads Generated
+G5: Leads Converted
+F6: (in Lacs)
+G6: (in Lacs)
+H5:H7 % Conversion
+I5: Leads Converted 
+I6: Leads Converted 
+I7: Leads Converted 
+
+J5: Unique Leads Generated
+J6: (in Lacs)
+
+K5:Leads Converted
+K6: (in Lacs)
+
+N5: Leads Converted 
+N6: Business Generated during FY'25
+N7: (Amount  in Cr.)
+
+O5:O7 % Conversion
+
+
+Business Unit
+
+PBBU
+PBBU
+PBBU
+PBBU
+PBBU
+PBBU
+PBBU
+PBBU
+PBBU
+PBBU
+PBBU
+REHBU
+REHBU
+REHBU
+REHBU
+REHBU
+REHBU
+REHBU
+REHBU
+REHBU
+SMEBU
+SMEBU
+SMEBU
+SMEBU
+SMEBU
+SMEBU
+SMEBU
+SMEBU
+ABU
+ABU
+ABU
+ABU
+ABU
+ABU
+CVEBU
+CVEBU
+CVEBU
+CVEBU
+CVEBU
+
+
+Sheet Names
+PAPL
+RTXC
+XC
+PL_TAKEOVER_CSP
+PENSION LOANS
+P Gold LOan
+WINBACK GOLD
+PACL-CSP
+Loan Against MF
+SURYA GHAR
+Home Loan for Education Loan
+HL takeover
+HL Top-UP
+Insta HL Top-UP
+HL Non-CSP
+HL - CSP
+PLAP
+Home Loan Repair and Renovation
+PABL
+PASBL
+LC Discounting
+Static CC
+Surya Shakti
+NTB LEAD EMERGING SECTOR
+HealthCare Business Loan
+Agri Gold Loan
+LEADS_FOR_SHG_JLGs
+PREQUALIFIED_SHG
+Mudra Loan
+KSR
+SBI General
+SBI Card
+SBI Life 
+SBI Mutual Fund
+
+
+Input sheets: B5:G5 
+Unique Leads Generated	Leads Converted (count)	Commision (Amount) (in Cr.)	% Conversion	Business Booked in FY 2025-26 (commission) (in Cr.)	% Conversion
+B4:G4 =  FY 26-27 (Up to Jul'26)					
+
